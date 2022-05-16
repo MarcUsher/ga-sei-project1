@@ -6,6 +6,10 @@ body {
     max-width: 1500px;
 }
 
+body.overlay {
+    background-color: grey;
+}
+
 /* Header Styling */
 
 header {
@@ -38,9 +42,36 @@ header {
     background-color: blanchedalmond;
     margin: 10px;
     padding: 20px 30px;
+    text-align: center;
 }
 
+.game-prompt {
+    background-color: blanchedalmond;
+    height: 100px;
+    margin: 5px;
+    width: 55%;
+}
 
+/* Button styling */
+
+.button {
+    background-color: aquamarine;
+    padding: 0px 40px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.pop-up {
+    background-color: brown;
+    border: solid white 2px;
+    color: white;
+    display: none;
+    height: 50%;
+    padding: 20px;
+    position: absolute;
+    text-align: center;
+    width: 40%;
+}
 
 /* Game Board Styling */
 
@@ -51,15 +82,16 @@ header {
     flex-wrap: wrap;
     margin: 10px;
     position: relative;
-    width: 817px;
+    width: 816px;
+    height: 420px;
 }
 
 .grid {
     border-color:sienna;
     border-style: solid;
     border-width: 0.5px;
-    height: 100px;
-    width: 100px;
+    height: 24%;
+    width: 12.2%;
 }
 
 .game-board .space {
@@ -86,9 +118,10 @@ header {
 /* Game Piece Styling */
 
 .white, .brown {
+    border: solid black 1px;
     position: absolute;
-    height: 50px;
-    width: 50px;
+    height: 24.5%;
+    width: 12.2%;
 }
 
 .white {
@@ -102,6 +135,10 @@ header {
 .circle {
     border-radius: 50%;
 }
+
+/* Game state styling */
+
+
 
 
 /* Footer Styling - consistent across all pages */

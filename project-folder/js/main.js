@@ -23,11 +23,36 @@
 // Create the Pieces on top that you can move one step at time
 
 
+
+// Adding player tokens
+
 $('.game-board').append("<div class='white circle'></div>")
 $('.game-board').append("<div class='brown square'></div>")
 
 $('.grid').droppable({accept: ".brown", accept: ".white"})
-$('.white').droppable({accept: ".grid"})
 
-$('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid", grid: [100.05, 100.05], snapMode: "inner", snapTolerance: 25});
-$('.brown').draggable({ containment: ".game-board", scroll: false, snap: ".grid", grid: [100.05, 100.05], snapMode: "inner", snapTolerance: 25});
+$('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
+$('.brown').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
+
+$('.white').css("top", "200", "left", "200");
+$('.brown').css("top", "200", "left", "400");
+
+
+// Rules button Clicks
+
+$('.button.rules').click(function() {
+    $('.pop-up').toggle();
+    // $('body').toggleClass('overlay');
+})
+
+$('.pop-up').click(function() {
+    $('.pop-up').toggle();
+})
+
+
+// Player initial player scores
+let whiteScore = 0;
+$('#white-score').append("<p> " + whiteScore + " </p>")
+
+let brownScore = 0;
+$('#brown-score').append("<p> " + brownScore + " </p>")
