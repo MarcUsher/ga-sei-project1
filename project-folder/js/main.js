@@ -24,7 +24,10 @@
 
 
 $('.game-board').append("<div class='white circle'></div>")
+$('.game-board').append("<div class='brown square'></div>")
 
-$('.grid').droppable()
+$('.grid').droppable({accept: ".brown", accept: ".white"})
+$('.white').droppable({accept: ".grid"})
 
-$('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid", grid: [50, 50], snapMode: "inner"});
+$('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid", grid: [100.05, 100.05], snapMode: "inner", snapTolerance: 25});
+$('.brown').draggable({ containment: ".game-board", scroll: false, snap: ".grid", grid: [100.05, 100.05], snapMode: "inner", snapTolerance: 25});
