@@ -11,7 +11,7 @@
 // Empty grid
 // Objects on top
 // Container is min width
-// Object move logic is done by %
+// Object move logic is done by %?
 // Draw a line to follow the mouse & snap to grid
 //   - Click once to draw a line, click again to confirm teh move/press a button to cancel the move/
 // Local storage = storage your move or the game state? Or you click reset game that's the only way? Also save scores?
@@ -21,3 +21,8 @@
 
 // Get start pages & grid set up 
 // Create the Pieces on top that you can move one step at time
+
+
+$('.game-board').append("<div class='white circle'></div>")
+
+$('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid" });

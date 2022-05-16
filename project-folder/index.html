@@ -12,6 +12,7 @@
     <!-- Header - sticks across all pages (probably) -->
     <header>
         <h1>Push Fight!</h1>
+        <div id="rule"></div>
     </header>
 
     <main>
@@ -20,7 +21,7 @@
 
             </div>
             <div class="skip button">
-                <p>Skip</p>
+                <p><b>Skip</b></p>
             </div>
             <div class="game-area">
                 <div class="score" id="white-score">
@@ -28,51 +29,51 @@
                 </div>
                 <div class="game-board">
                     <!-- First Grid Row -->
-                    <div class="grid row1 column1" id="space"></div>
-                    <div class="grid row1 column2" id="space"></div>
-                    <div class="grid row1 column3" id="top"></div>
-                    <div class="grid row1 column4" id="top"></div>
-                    <div class="grid row1 column5" id="top"></div>
-                    <div class="grid row1 column6" id="top"></div>
-                    <div class="grid row1 column7" id="top"></div>
-                    <div class="grid row1 column8" id="space"></div>
+                    <div class="grid row1 column1 space"></div>
+                    <div class="grid row1 column2 space"></div>
+                    <div class="grid row1 column3 top top-left"></div>
+                    <div class="grid row1 column4 top"></div>
+                    <div class="grid row1 column5 top"></div>
+                    <div class="grid row1 column6 top"></div>
+                    <div class="grid row1 column7 top top-right"></div>
+                    <div class="grid row1 column8 space"></div>
 
                     <!-- Second Grid Row -->
-                    <div class="grid row2 column1"></div>
-                    <div class="grid row2 column2"></div>
+                    <div class="grid row2 column1 mid-top"></div>
+                    <div class="grid row2 column2 mid-top"></div>
                     <div class="grid row2 column3"></div>
                     <div class="grid row2 column4"></div>
                     <div class="grid row2 column5"></div>
                     <div class="grid row2 column6"></div>
                     <div class="grid row2 column7"></div>
-                    <div class="grid row2 column8"></div>
+                    <div class="grid row2 column8 mid-top"></div>
 
                     <!-- Third Grid Row -->
-                    <div class="grid row3 column1"></div>
+                    <div class="grid row3 column1 mid-bottom"></div>
                     <div class="grid row3 column2"></div>
                     <div class="grid row3 column3"></div>
                     <div class="grid row3 column4"></div>
                     <div class="grid row3 column5"></div>
                     <div class="grid row3 column6"></div>
-                    <div class="grid row3 column7"></div>
-                    <div class="grid row3 column8"></div>
+                    <div class="grid row3 column7 mid-bottom"></div>
+                    <div class="grid row3 column8 mid-bottom"></div>
 
                     <!-- Fourth Grid Row -->
-                    <div class="grid row4 column1" id="space"></div>
-                    <div class="grid row4 column2" id="bottom"></div>
-                    <div class="grid row4 column3" id="bottom"></div>
-                    <div class="grid row4 column4" id="bottom"></div>
-                    <div class="grid row4 column5" id="bottom"></div>
-                    <div class="grid row4 column6" id="bottom"></div>
-                    <div class="grid row4 column7" id="space"></div>
-                    <div class="grid row4 column8" id="space"></div>
+                    <div class="grid row4 column1 space"></div>
+                    <div class="grid row4 column2 bottom bottom-right"></div>
+                    <div class="grid row4 column3 bottom"></div>
+                    <div class="grid row4 column4 bottom"></div>
+                    <div class="grid row4 column5 bottom"></div>
+                    <div class="grid row4 column6 bottom bottom-left"></div>
+                    <div class="grid row4 column7 space"></div>
+                    <div class="grid row4 column8 space"></div>
                 </div>
                 <div class="score" id="brown-score">
                     <h3>Brown Score</h3>
                 </div>
             </div>
             <div class="rules button">
-                <p>Rules</p>
+                <p><b>Rules</b></p>
             </div>
         </div>
     </main>
@@ -80,7 +81,7 @@
     <!-- Footer - sticks across all pages -->
     <footer>
         <div id="footer-container">
-            <div id="footer-rule"></div>
+            <div id="rule"></div>
             <div id="footer-content">
                 <p>Designed & Built by Marc Usher &nbsp; || &nbsp; Original Push Fight game by <a href="https://pushfightgame.com/index.htm">Brettco, Inc</a></p>
                 <div id="Footer links">
@@ -96,6 +97,7 @@
 
     <!-- JS scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

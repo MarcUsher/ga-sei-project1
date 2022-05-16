@@ -12,6 +12,12 @@ header {
     font-size: x-large;
 }
 
+#rule {
+    background-color: black;
+    height: 2px;
+    margin: 10px 0px;
+    width: 100%;
+}
 
 /* Main Game page Styling */
 
@@ -27,46 +33,77 @@ header {
     width: 100%;
 }
 
+.score {
+    background-color: blanchedalmond;
+    margin: 10px;
+    padding: 20px 30px;
+}
+
+
+
+/* Game Board Styling */
+
 .game-board {
     background-color: blanchedalmond;
     display: flex;
     flex-wrap: wrap;
     margin: 10px;
-    width: 816px;
-}
-
-.score {
-    margin: 10px;
+    position: relative;
+    width: 817px;
 }
 
 .grid {
-    border-color:brown;
+    border-color:sienna;
     border-style: solid;
     border-width: 0.5px;
     height: 100px;
     width: 100px;
 }
 
-.game-board #space {
+.game-board .space {
     border-color: blanchedalmond;
 }
 
-.game-board #top {
-    border-top: thick solid;
+.game-board .top {
+    border-top: thick solid sienna;
 }
 
-.game-board #bottom {
-    border-bottom: thick solid;
+.game-board .bottom {
+    border-bottom: thick solid sienna;
 }
+
+.game-board .column4 {
+    border-right: dashed sienna 2px;
+}
+
+.game-board .column5 {
+    border-left: dashed sienna 2px;
+}
+
+
+/* Game Piece Styling */
+
+.white, .brown {
+    position: absolute;
+    height: 60px;
+    width: 60px;
+    margin: 20px;
+}
+
+.white {
+    background-color: white;
+}
+
+.brown{
+    background-color: darkolivegreen;
+}
+
+.circle {
+    border-radius: 50%;
+}
+
 
 /* Footer Styling - consistent across all pages */
-
-#footer-rule {
-    background-color: black;
-    height: 2px;
-    margin: 10px 0px;
-    width: 100%;
-}
 
 #footer-content {
     display: flex;
