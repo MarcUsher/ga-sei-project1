@@ -85,9 +85,8 @@ header {
 
 .white, .brown {
     position: absolute;
-    height: 60px;
-    width: 60px;
-    margin: 20px;
+    height: 100px;
+    width: 100px;
 }
 
 .white {

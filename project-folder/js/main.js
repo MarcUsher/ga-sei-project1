@@ -25,4 +25,6 @@
 
 $('.game-board').append("<div class='white circle'></div>")
 
-$('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid" });
+$('.grid').droppable()
+
+$('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid", grid: [50, 50], snapMode: "inner"});
