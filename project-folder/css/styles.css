@@ -1,0 +1,26 @@
+body {
+    background-color: moccasin;
+    font-family: 'Raleway', sans-serif;
+    margin: 0 auto;
+    max-width: 1500px;
+}
+
+#footer-rule {
+    background-color: black;
+    height: 2px;
+    margin: 10px 0px;
+    width: 100%;
+}
+
+#footer-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+footer ul {
+    list-style-type: none;
+}
+
+footer ul li {
+    display: inline-block;
+}
