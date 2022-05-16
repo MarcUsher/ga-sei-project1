@@ -31,12 +31,8 @@ $('.game-board').append("<div class='brown square'></div>")
 
 $('.grid').droppable({accept: ".brown", accept: ".white"})
 
-$('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
-$('.brown').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
-
-$('.white').css("top", "200", "left", "200");
-$('.brown').css("top", "200", "left", "400");
-
+// $('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
+// $('.brown').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
 
 // Rules button Clicks
 
@@ -48,6 +44,50 @@ $('.button.rules').click(function() {
 $('.pop-up').click(function() {
     $('.pop-up').toggle();
 })
+
+// Player Turn Rules
+
+let playerCount = 2;
+let whiteMoves = 0;
+let brownMoves = 0;
+
+if (playerCount % 2 !=0) {
+    whiteTurn();
+} else {
+    brownTurn();
+}
+
+// This isn't quite working yet!
+
+function whiteTurn() {
+    $('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
+    playerCount ++;
+    console.log(playerCount);
+    console.log("White goes");
+}
+
+function brownTurn() {
+    $('.brown').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
+    playerCount ++;
+    console.log(playerCount);
+    console.log("Brown goes");
+}
+
+function whiteMove() {
+    ('.white').click(function() {
+        whiteMoves ++;
+        console.log("White moves: " + $(whiteMoves))
+    })
+}
+
+function brownMove() {
+    ('.brown').click(function() {
+        brownMoves = brownMoves += 1;
+        console.log("Brown moves: " + $(brownMoves))
+    })
+}
+
+
 
 
 // Player initial player scores
