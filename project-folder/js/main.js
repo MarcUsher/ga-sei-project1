@@ -79,16 +79,27 @@
 //     - If you can't push, have a Forfeit button?
 
 
-
+// Game object knows all
+// droppable drop method checks game status and updates grid classes
+// droppable activate method checks game status and updates grid classes
 
 // WORKING JS CODE:
 
 let game = {
-    row1: ["space", "space", 0, 0, 0, 0, 0, "space"],
-    row2: [0, 0, 0, 0, 0, 0, 0, 0],
-    row3: [0, 0, 0, 0, 0, 0, 0, 0],
-    row4: ["space", 0, 0, 0, 0, 0, "space", "space"]
+    status: "setup", // all options are: setup, whitemove, whitepush, brownmove, brownpush, end
+    // grid: {
+    //     row1: [-1, -1, 0, 0, 0, 0, 0, -1],
+    //     row2: [0, 0, 0, 0, 0, 0, 0, 0],
+    //     row3: [0, 0, 0, 0, 0, 0, 0, 0],
+    //     row4: [-1, 0, 0, 0, 0, 0, -1, -1],
+    // },
 }
+
+// -1 = not allowed; 0 = empty; 1 = white circle; 2 = white square; 3 = black circle; 4 = black square
+// have a second array at the point where someone grabs hold of something and work out from that one where they can or can't move to
+
+
+
 
 // Make each row here an object within the object
 // Include the counters and all game info in here eg. white move, brown move etc.
@@ -111,13 +122,56 @@ let game = {
 
 $('.button.skip p').html("<b>Start Game</b>")
 
-function startGame() {
-    $('.button.skip').click(function() {
-        whiteStart();
+function init() {
+    $('.token').draggable({
+        containment: '.game-area',
+        revert: 'invalid',
     })
+    var spacesLeft = $('.grid.left').droppable({
+        accept: '.token.white',
+        drop: function(ev, ui) {
+            var token = ui.draggable;
+            var droppedOn = $(this);
+            $(token).detach().css({top: '50%',left: '50%'}).appendTo(droppedOn);
+            $(token).addClass('token--placed');
+            $(droppedOn).addClass('grid--occupied grid--occupied-white');
+        },
+        out: function(ev, ui) {
+            var token = ui.draggable;
+            var draggedFrom = $(this);
+            $(draggedFrom).removeClass('grid--occupied grid--occupied-white');
+            console.log(ui, 'ui');
+            console.log($(this));   
+        }
+      });
+    var spacesRight = $('.grid.right').droppable({
+        accept: '.token.brown',
+        drop: function(ev, ui) {
+            var token = ui.draggable;
+            var droppedOn = $(this);
+            $(token).detach().css({top: '50%',left: '50%'}).appendTo(droppedOn);
+            $(token).addClass('token--placed');
+            $(droppedOn).addClass('grid--occupied grid--occupied-brown');
+        },
+        out: function(ev, ui) {
+            var token = ui.draggable;
+            var draggedFrom = $(this);
+            $(draggedFrom).removeClass('grid--occupied grid--occupied-brown');
+            console.log(ui, 'ui');
+            console.log($(this));
+        }
+      });
 }
 
-startGame();
+init()
+
+// function startGame() {
+//     $('.button.skip').click(function() {
+//         whiteStart();
+//     })
+// }
+
+// startGame();
 
 
 // function whiteStart() {
@@ -141,99 +195,98 @@ startGame();
 
 
 
-function whiteStart() {
-    $('.game-prompt p').html("<b>White</b>, place your tokens on the left-hand side of the board!");
-    $('.button.skip').off("click");
-    $('.button.skip p').html("<b>Empty button</b>");
-    let whiteTiles = 0;
-    $('.grid.left').each(function () {
-        $(this).on("mouseenter", (function () {
-            $(this).children("div").addClass('white');
-            // console.log("mouse enter")
-        }))
-        $(this).on("mouseleave", (function () {
-            $(this).children("div").removeClass('white')
-            // console.log("mouse leave")
-        }))
-        $(this).children("div").on("click", (function () {
-            $(this).addClass("white");
-            $(this).parent().off('mouseleave');
-            whiteTiles ++;
-            console.log(whiteTiles);
-            // console.log("mouse click");
-            if (whiteTiles === 3) {
-                $('.grid.left').each(function () {
-                    $(this).on("mouseenter", (function () {
-                        $(this).children("div").addClass('circle');
-                        // console.log("mouse enter")
-                    }))
-                    $(this).on("mouseleave", (function () {
-                        $(this).children("div").removeClass('circle')
-                        // console.log("mouse leave")
-                    }))
-                    $(this).children("div").on("click", (function () {
-                        $(this).addClass("circle");
-                        $(this).parent().off('mouseleave');
-                        whiteTiles ++;
-                        if (whiteTiles === 5) {
-                            console.log("YOU DID IT");
-                            brownStart();
-                            return false;
-                        }
-                    }))
-                })
-            }
-        }))
-    })
-}
+// function whiteStart() {
+//     $('.game-prompt p').html("<b>White</b>, place your tokens on the left-hand side of the board!");
+//     $('.button.skip').off("click");
+//     $('.button.skip p').html("<b>Empty button</b>");
+//     let whiteTiles = 0;
+//     $('.grid.left').each(function () {
+//         $(this).on("mouseenter", (function () {
+//             $(this).children("div").addClass('white');
+//             // console.log("mouse enter")
+//         }))
+//         $(this).on("mouseleave", (function () {
+//             $(this).children("div").removeClass('white')
+//             // console.log("mouse leave")
+//         }))
+//         $(this).children("div").on("click", (function () {
+//             $(this).addClass("white");
+//             $(this).parent().off('mouseleave');
+//             whiteTiles ++;
+//             console.log(whiteTiles);
+//             // console.log("mouse click");
+//             if (whiteTiles === 3) {
+//                 $('.grid.left').each(function () {
+//                     $(this).on("mouseenter", (function () {
+//                         $(this).children("div").addClass('circle');
+//                         // console.log("mouse enter")
+//                     }))
+//                     $(this).on("mouseleave", (function () {
+//                         $(this).children("div").removeClass('circle')
+//                         // console.log("mouse leave")
+//                     }))
+//                     $(this).children("div").on("click", (function () {
+//                         $(this).addClass("circle");
+//                         $(this).parent().off('mouseleave');
+//                         whiteTiles ++;
+//                         if (whiteTiles === 5) {
+//                             console.log("YOU DID IT");
+//                             brownStart();
+//                         }return false;
+//                     }))
+//                 })
+//             }
+//         }))
+//     })
+// }
 
-function brownStart() {
-    $('.game-prompt p').html("<b>Brown</b>, place your tokens on the left-hand side of the board!");
-    $('.button.skip').off("click");
-    let brownTiles = 0;
-    $('.grid.right').each(function () {
-        $(this).on("mouseenter", (function () {
-            $(this).children("div").addClass('brown');
-            // console.log("mouse enter")
-        }))
-        $(this).on("mouseleave", (function () {
-            $(this).children("div").removeClass('brown')
-            // console.log("mouse leave")
-        }))
-        $(this).children("div").on("click", (function () {
-            $(this).addClass("brown");
-            $(this).parent().off('mouseleave');
-            brownTiles ++;
-            console.log(brownTiles);
-            // console.log("mouse click");
-            if (brownTiles === 3) {
-                $('.grid.right').each(function () {
-                    $(this).on("mouseenter", (function () {
-                        $(this).children("div").addClass('circle');
-                        // console.log("mouse enter")
-                    }))
-                    $(this).on("mouseleave", (function () {
-                        $(this).children("div").removeClass('circle')
-                        // console.log("mouse leave")
-                    }))
-                    $(this).children("div").on("click", (function () {
-                        $(this).addClass("circle");
-                        $(this).parent().off('mouseleave');
-                        brownTiles ++;
-                        if (brownTiles === 5) {
-                            console.log("YOU DID IT");
-                            return false;
-                        }
-                    }))
-                })
-            }
-        }))
-    })
-}
+// function brownStart() {
+//     $('.game-prompt p').html("<b>Brown</b>, place your tokens on the left-hand side of the board!");
+//     $('.button.skip').off("click");
+//     let brownTiles = 0;
+//     $('.grid.right').each(function () {
+//         $(this).on("mouseenter", (function () {
+//             $(this).children("div").addClass('brown');
+//             // console.log("mouse enter")
+//         }))
+//         $(this).on("mouseleave", (function () {
+//             $(this).children("div").removeClass('brown')
+//             // console.log("mouse leave")
+//         }))
+//         $(this).children("div").on("click", (function () {
+//             $(this).addClass("brown");
+//             $(this).parent().off('mouseleave');
+//             brownTiles ++;
+//             console.log(brownTiles);
+//             // console.log("mouse click");
+//             if (brownTiles === 3) {
+//                 $('.grid.right').each(function () {
+//                     $(this).on("mouseenter", (function () {
+//                         $(this).children("div").addClass('circle');
+//                         // console.log("mouse enter")
+//                     }))
+//                     $(this).on("mouseleave", (function () {
+//                         $(this).children("div").removeClass('circle')
+//                         // console.log("mouse leave")
+//                     }))
+//                     $(this).children("div").on("click", (function () {
+//                         $(this).addClass("circle");
+//                         $(this).parent().off('mouseleave');
+//                         brownTiles ++;
+//                         if (brownTiles === 5) {
+//                             console.log("YOU DID IT");
+//                             return false;
+//                         }return false;
+//                     }))
+//                 })
+//             }
+//         }))
+//     })
+// }
 
-function emptyFunction(){
-    console.log("Crowe")
-}
+// function emptyFunction(){
+//     console.log("Crowe")
+// }
 
 
 // ADDING PLAYER TOKENS
@@ -253,7 +306,7 @@ function emptyFunction(){
 //     }
 //     for (let whiteSquare = 0; whiteSquare < 3; whiteSquare ++) {
 //         $('.game-board').append("<div class='white square'></div>");
-//         $('.white.square').draggable({ containment: ".game-board", snapMode: "inner", scroll: false, snap: ".grid.left", revert: revert(), snapTolerance: 100, opacity: 0.5});
+//         $('.white.square').draggable({ containment: ".game-board", snapMode: "inner", scroll: false, snap: ".grid.left", snapTolerance: 100, opacity: 0.5});
 //         $('.grid.left').droppable({accept: ".white.square"});
 //     }
 // }
@@ -370,20 +423,20 @@ $('.pop-up').click(function() {
 
 // PLAYER SCORES
 
-let whiteScore = 0;
-$('#white-score').append("<p> " + whiteScore + " </p>")
+// let whiteScore = 0;
+// $('#white-score').append("<p> " + whiteScore + " </p>")
 
-let brownScore = 0;
-$('#brown-score').append("<p> " + brownScore + " </p>")
+// let brownScore = 0;
+// $('#brown-score').append("<p> " + brownScore + " </p>")
 
 
 
 
 // PLAYER TURN RULES
 
-let playerCount = 2;
-let whiteMoves = 0;
-let brownMoves = 0;
+// let playerCount = 2;
+// let whiteMoves = 0;
+// let brownMoves = 0;
 
 // if (playerCount % 2 !=0) {
 //     whiteTurn();

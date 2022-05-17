@@ -36,14 +36,16 @@ header {
 .game-area {
     display: flex;
     justify-content: space-evenly;
+    align-items: stretch;
     width: 100%;
 }
 
-.score {
+.start-zone {
     background-color: blanchedalmond;
     margin: 10px;
     padding: 20px 30px;
     text-align: center;
+    width: 150px;
 }
 
 .game-prompt {
@@ -85,46 +87,62 @@ header {
     flex-wrap: wrap;
     margin: 10px;
     position: relative;
-    width: 816px;
-    height: 420px;
+    width: 800px;
+    height: 400px;
 }
 
 .grid {
     border-color:sienna;
     border-style: solid;
-    border-width: 0.5px;
-    height: 24%;
-    width: 12.2%;
+    border-width: 1px;
+    height: calc(25% - 2px);
+    position: relative;
+    width: calc(12.5% - 2px);
 }
 
 .game-board .space {
     border-color: blanchedalmond;
+    border-style: solid;
+    border-width: 1px;
+    height: calc(25% - 2px);
+    position: relative;
+    width: calc(12.5% - 2px);
 }
 
 .game-board .top {
-    border-top: thick solid sienna;
+    border-top: 5px solid sienna;
+    height: calc(25% - 5px);
 }
 
 .game-board .bottom {
-    border-bottom: thick solid sienna;
+    border-bottom: 5px solid sienna;
+    height: calc(25% - 5px);
 }
 
-.game-board .column4 {
+/* .game-board .column4 {
     border-right: dashed sienna 2px;
 }
 
 .game-board .column5 {
     border-left: dashed sienna 2px;
-}
+} */
 
 
 /* Game Piece Styling */
 
-.white, .brown {
+.token {
+    display: inline-block;
     border: solid black 1px;
+    height: 50px;
+    width: 50px;
+    z-index: 10;
+}
+
+.token--placed {
+    display: block;
+    margin-top: -25px;
+    margin-left: -25px;
     position: absolute;
-    height: 24%;
-    width: 12.2%;
 }
 
 .white {
