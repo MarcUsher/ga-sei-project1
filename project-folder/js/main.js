@@ -1,3 +1,6 @@
+
+// NOTES:
+
 // Initial notes
 
 // Hover state to show possible moves for a piece
@@ -23,6 +26,62 @@
 // Create the Pieces on top that you can move one step at time
 
 
+// Useful jQuery things:
+// DRAGGABLE
+
+// add class "highlight"
+// https://api.jqueryui.com/draggable/#option-classes
+
+// helper
+// https://api.jqueryui.com/draggable/#option-helper
+
+// opacity
+// https://api.jqueryui.com/draggable/#option-opacity
+
+// scope
+// https://api.jqueryui.com/draggable/#option-scope
+
+// revert
+
+// DROPPABLE
+// grid needs 'accept' condition
+
+// https://api.jqueryui.com/droppable/
+
+// Day 2 Notes:
+
+// START GAME button
+// Click to place pieces. White goes first (all 5), then brown (all 5), then it's white's go.
+
+// START GAME FUNCTION
+// White place, 2x circle, 3x square (potentially tracker to count how many clicks/counters on the board?)
+// can only go GRID LEFT
+
+// THEN 
+// Brown place, 2x circle, 3x square (again tracker to count them)
+
+// THEN goes into turn function.
+
+// Essentially daisy chain functions - Start > Move (white move, brown move), > PUSH (victory conditions checked with each push: if no push possible then other player wins; if pieces remaining on board = 4 then person with 5 wins) > Move > Push > Move > Push > Move > Push etc.
+
+// Problems to solve:
+// - Empty grids, if a piece is moved onto there then -1 to the counter score and 'fade away' the piece
+// - Don't allow moves onto empty space during MOVE action
+// - Don't allow moves through other pieces during MOVE action
+// - Push needs to push all of the ones in a specific direction
+
+
+// TODAY
+// - Nail initial board set up
+// - Work on Daisy Chaining move functions & conditions, and SKIPPING A MOVE
+// - Work out how to not allow moves on empty grids, and not to allow moves on other game pieces
+// - ADD THE PROMPTS AT EACH STAGE eg. "White, add your pieces to the left of the board" ** Brown; "White, it's your go! Move up to 2 of your pieces, or click the 'Skip' button to skip your moves"; "White, choose a square piece and a direction to push all the pieces in a line 1 square in that direction."
+//     - If you can't push, have a Forfeit button?
+
+
+
+
+// WORKING JS CODE:
 
 // Adding player tokens
 
