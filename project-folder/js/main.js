@@ -120,8 +120,120 @@ function startGame() {
 startGame();
 
 
+// function whiteStart() {
+//     $('.game-prompt p').html("<b>White</b>, place your tokens on the left-hand side of the board!");
+//     $('.button.skip').off("click"); 
+//      $('.button.skip p').html("<b>Empty button</b>");
+//     $('.grid').each(function () {
+//         $(this).children("div").on("mouseenter", (function () {
+//             $(this).addClass('white');
+//             console.log("mouse enter")
+//         }))
+//         $(this).children("div").on("mouseleave", (function () {
+//             $(this).removeClass('white')
+//             console.log("mouse leave")
+//         }))
+//         $(this).children("div").on("click", (function () {
+//             $(this).off('mouseleave')
+//         }))
+//     })
+//     }
 
 
+
+function whiteStart() {
+    $('.game-prompt p').html("<b>White</b>, place your tokens on the left-hand side of the board!");
+    $('.button.skip').off("click");
+    $('.button.skip p').html("<b>Empty button</b>");
+    let whiteTiles = 0;
+    $('.grid.left').each(function () {
+        $(this).on("mouseenter", (function () {
+            $(this).children("div").addClass('white');
+            // console.log("mouse enter")
+        }))
+        $(this).on("mouseleave", (function () {
+            $(this).children("div").removeClass('white')
+            // console.log("mouse leave")
+        }))
+        $(this).children("div").on("click", (function () {
+            $(this).addClass("white");
+            $(this).parent().off('mouseleave');
+            whiteTiles ++;
+            console.log(whiteTiles);
+            // console.log("mouse click");
+            if (whiteTiles === 3) {
+                $('.grid.left').each(function () {
+                    $(this).on("mouseenter", (function () {
+                        $(this).children("div").addClass('circle');
+                        // console.log("mouse enter")
+                    }))
+                    $(this).on("mouseleave", (function () {
+                        $(this).children("div").removeClass('circle')
+                        // console.log("mouse leave")
+                    }))
+                    $(this).children("div").on("click", (function () {
+                        $(this).addClass("circle");
+                        $(this).parent().off('mouseleave');
+                        whiteTiles ++;
+                        if (whiteTiles === 5) {
+                            console.log("YOU DID IT");
+                            brownStart();
+                            return false;
+                        }
+                    }))
+                })
+            }
+        }))
+    })
+}
+
+function brownStart() {
+    $('.game-prompt p').html("<b>Brown</b>, place your tokens on the left-hand side of the board!");
+    $('.button.skip').off("click");
+    let brownTiles = 0;
+    $('.grid.right').each(function () {
+        $(this).on("mouseenter", (function () {
+            $(this).children("div").addClass('brown');
+            // console.log("mouse enter")
+        }))
+        $(this).on("mouseleave", (function () {
+            $(this).children("div").removeClass('brown')
+            // console.log("mouse leave")
+        }))
+        $(this).children("div").on("click", (function () {
+            $(this).addClass("brown");
+            $(this).parent().off('mouseleave');
+            brownTiles ++;
+            console.log(brownTiles);
+            // console.log("mouse click");
+            if (brownTiles === 3) {
+                $('.grid.right').each(function () {
+                    $(this).on("mouseenter", (function () {
+                        $(this).children("div").addClass('circle');
+                        // console.log("mouse enter")
+                    }))
+                    $(this).on("mouseleave", (function () {
+                        $(this).children("div").removeClass('circle')
+                        // console.log("mouse leave")
+                    }))
+                    $(this).children("div").on("click", (function () {
+                        $(this).addClass("circle");
+                        $(this).parent().off('mouseleave');
+                        brownTiles ++;
+                        if (brownTiles === 5) {
+                            console.log("YOU DID IT");
+                            return false;
+                        }
+                    }))
+                })
+            }
+        }))
+    })
+}
+
+function emptyFunction(){
+    console.log("Crowe")
+}
 
 
 // ADDING PLAYER TOKENS
@@ -130,21 +242,21 @@ startGame();
 
 // Via Draggable - adds the right number but how to check if they're 'set'?
 
-function whiteStart() {
-    $('.game-prompt p').html("<b>White</b>, place your tokens on the left-hand side of the board!");
-    $('.button.skip').off("click");
-    $('.button.skip p').html("<b>Empty button</b>");
-    for (let whiteCircle = 0; whiteCircle < 2; whiteCircle ++) {
-        $('.game-board').append("<div class='white circle'></div>");
-        $('.white.circle').draggable({ containment: ".game-board", snapMode: "inner", scroll: false, snap: ".left", snapTolerance: 100, opacity: 0.5});
-        $('.left').droppable({accept: ".white.circle"});
-    }
-    // for (let whiteSquare = 0; whiteSquare < 3; whiteSquare ++) {
-    //     $('.game-board').append("<div class='white square'></div>");
-    //     $('.white.square').draggable({ containment: ".game-board", snapMode: "inner", scroll: false, snap: ".grid.left", revert: "valid", snapTolerance: 100, opacity: 0.5});
-    //     $('.grid.left').droppable({accept: ".white.square"});
-    // }
-}
+// function whiteStart() {
+//     $('.game-prompt p').html("<b>White</b>, place your tokens on the left-hand side of the board!");
+//     $('.button.skip').off("click");
+//     $('.button.skip p').html("<b>Empty button</b>");
+//     for (let whiteCircle = 0; whiteCircle < 2; whiteCircle ++) {
+//         $('.game-board').append("<div class='white circle'></div>");
+//         $('.white.circle').draggable({ containment: ".game-board", snapMode: "inner", scroll: false, snap: ".left", snapTolerance: 100, opacity: 0.5});
+//         $('.left').droppable({accept: ".white.circle"});
+//     }
+//     for (let whiteSquare = 0; whiteSquare < 3; whiteSquare ++) {
+//         $('.game-board').append("<div class='white square'></div>");
+//         $('.white.square').draggable({ containment: ".game-board", snapMode: "inner", scroll: false, snap: ".grid.left", revert: revert(), snapTolerance: 100, opacity: 0.5});
+//         $('.grid.left').droppable({accept: ".white.square"});
+//     }
+// }
 
 // function revert () {
 //     return true;
@@ -232,11 +344,11 @@ function whiteStart() {
 // $('.game-board').append("<div class='white circle'></div>")
 // $('.game-board').append("<div class='brown square'></div>")
 
-$('.grid').droppable({accept: ".brown", accept: ".white"})
+// $('.grid').droppable({accept: ".brown", accept: ".white"})
 
-$('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
+// $('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
 
-$('.brown').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
+// $('.brown').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
 
 
 
@@ -281,35 +393,36 @@ let brownMoves = 0;
 
 
 
+
+
 // This isn't quite working yet!
 
-function whiteTurn() {
-    console.log(playerCount);
-    console.log("White goes");
-    // Needs to throw to whiteMove, which then throws to whitePush, which then throws to brownMove, which then throws to brownPush, and so on.
-}
+// function whiteTurn() {
+//     console.log(playerCount);
+//     console.log("White goes");
+//     // Needs to throw to whiteMove, which then throws to whitePush, which then throws to brownMove, which then throws to brownPush, and so on.
+// }
 
-function brownTurn() {
-    console.log(playerCount);
-    console.log("Brown goes");
-    // Needs to throw to brownMove, which then throws to brownPush, which then throws to whiteMove, which then throws to whitePush, and so on.
-}
+// function brownTurn() {
+//     console.log(playerCount);
+//     console.log("Brown goes");
+//     // Needs to throw to brownMove, which then throws to brownPush, which then throws to whiteMove, which then throws to whitePush, and so on.
+// }
 
-function whiteMove() {
-    ('.white').click(function() {
-        whiteMoves ++;
-        console.log("White moves: " + $(whiteMoves))
-    })
-    // Needs something that SETS the move, and actually adds one at that set
-    // Needs something to allow to SKIP the move
-}
+// function whiteMove() {
+//     ('.white').click(function() {
+//         whiteMoves ++;
+//         console.log("White moves: " + $(whiteMoves))
+//     })
+//     // Needs something that SETS the move, and actually adds one at that set
+//     // Needs something to allow to SKIP the move
+// }
 
-function brownMove() {
-    ('.brown').click(function() {
-        brownMoves = brownMoves += 1;
-        console.log("Brown moves: " + $(brownMoves))
-    })
-    // Needs something that SETS the move, and actually adds one at that set
-    // Needs something to allow to SKIP the move
-}
-
+// function brownMove() {
+//     ('.brown').click(function() {
+//         brownMoves = brownMoves += 1;
+//         console.log("Brown moves: " + $(brownMoves))
+//     })
+//     // Needs something that SETS the move, and actually adds one at that set
+//     // Needs something to allow to SKIP the move
+// }

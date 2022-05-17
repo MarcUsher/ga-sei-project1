@@ -123,7 +123,7 @@ header {
 .white, .brown {
     border: solid black 1px;
     position: absolute;
-    height: 24.5%;
+    height: 24%;
     width: 12.2%;
 }
 
@@ -131,7 +131,7 @@ header {
     background-color: white;
 }
 
-.brown{
+.brown {
     background-color: darkolivegreen;
 }
 
