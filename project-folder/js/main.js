@@ -83,15 +83,43 @@
 
 // WORKING JS CODE:
 
+let game = {
+    row1: ["space", "space", 0, 0, 0, 0, 0, "space"],
+    row2: [0, 0, 0, 0, 0, 0, 0, 0],
+    row3: [0, 0, 0, 0, 0, 0, 0, 0],
+    row4: ["space", 0, 0, 0, 0, 0, "space", "space"]
+}
+
+// Make each row here an object within the object
+// Include the counters and all game info in here eg. white move, brown move etc.
+
+// Function that fires every time someone interacts with the board and checks the game object, and this function decides what it can call and what someone can do. --UNNECESSARY?
+
+// Start button asks the game object what status are you in, and what should I do?
+// So if game hasn't started then start the game
+// If it has started then go on to the white move
+
+
+
+
+// Each move, update object from 0 to 1
+// on alternate turns, don't allow player to move other player's divs
+
 
 
 // START GAME
 
 $('.button.skip p').html("<b>Start Game</b>")
 
-$('.button.skip').click(function() {
-    whiteStart();
-})
+function startGame() {
+    $('.button.skip').click(function() {
+        whiteStart();
+    })
+}
+
+startGame();
+
+
 
 
 
@@ -103,23 +131,44 @@ $('.button.skip').click(function() {
 // Via Draggable - adds the right number but how to check if they're 'set'?
 
 function whiteStart() {
-    $('.game-prompt p').html("<b>White</b>, place your tokens!");
+    $('.game-prompt p').html("<b>White</b>, place your tokens on the left-hand side of the board!");
     $('.button.skip').off("click");
+    $('.button.skip p').html("<b>Empty button</b>");
     for (let whiteCircle = 0; whiteCircle < 2; whiteCircle ++) {
         $('.game-board').append("<div class='white circle'></div>");
-        $('.white').draggable({ containment: ".game-board", snapMode: "inner", scroll: false, snap: ".grid.left", revert: "invalid", snapTolerance: 100, opacity: 0.5});
+        $('.white.circle').draggable({ containment: ".game-board", snapMode: "inner", scroll: false, snap: ".left", snapTolerance: 100, opacity: 0.5});
+        $('.left').droppable({accept: ".white.circle"});
     }
-    for (let whiteSquare = 0; whiteSquare < 3; whiteSquare ++) {
-        $('.game-board').append("<div class='white square'></div>");
-        $('.white').draggable({ containment: ".game-board", snapMode: "inner", scroll: false, snap: ".grid.left", revert: "invalid", snapTolerance: 100, opacity: 0.5});
-    }
+    // for (let whiteSquare = 0; whiteSquare < 3; whiteSquare ++) {
+    //     $('.game-board').append("<div class='white square'></div>");
+    //     $('.white.square').draggable({ containment: ".game-board", snapMode: "inner", scroll: false, snap: ".grid.left", revert: "valid", snapTolerance: 100, opacity: 0.5});
+    //     $('.grid.left').droppable({accept: ".white.square"});
+    // }
 }
 
+// function revert () {
+//     return true;
+// }
 
-// Via Hover/Click
+
+// function brownStart () {
+//     $('.game-prompt p').html("<b>Brown</b>, place your tokens on the left-hand side of the board!");
+//     $('.button.skip').off("click");
+//     for (let whiteCircle = 0; whiteCircle < 2; whiteCircle ++) {
+//         $('.game-board').append("<div class='white circle'></div>");
+//         $('.white').draggable({ containment: ".game-board", snapMode: "inner", scroll: false, snap: ".grid.left", revert: "invalid", snapTolerance: 100, opacity: 0.5});
+//     }
+//     for (let whiteSquare = 0; whiteSquare < 3; whiteSquare ++) {
+//         $('.game-board').append("<div class='white square'></div>");
+//         $('.white').draggable({ containment: ".game-board", snapMode: "inner", scroll: false, snap: ".grid.left", revert: "invalid", snapTolerance: 100, opacity: 0.5});
+//     }
+// }
 
 
 
+
+// Via Mouseenter/Mouseleave/Click
+    
 
 // function whiteStart() {
 //     $('.game-prompt p').html("<b>White</b>, place your tokens!");
@@ -128,19 +177,19 @@ function whiteStart() {
 //     if (whiteCircle === 2) {
 //         console.log("White Done!")
 //     } else {
-//         $('.grid.left').on("mouseenter", (function () {
+//         $('game-board').on("click", (function () {
 //             $(this).append("<div class='white circle'></div>");
 //             whiteCircle ++;
 //             console.log(whiteCircle);
 //         }))
-//         $('.grid.left').on("mouseleave", (function () {
+//         $('.white.circle').on("click", (function () {
 //              $(this).remove(".white.circle")
 //              whiteCircle --;
 //              console.log(whiteCircle);
-//              console.log("Mouse leave");
+//              console.log("click two");
 //         }))
-//         $('.grid.left').on("click", (function () {
-//             $(".grid.left").off("mouseleave");
+//         $('.white.circle').on("dblclick", (function () {
+//             $(".white.circle").off("click");
 //             console.log("click!");
 //             console.log(whiteCircle);
 //         }))
@@ -155,7 +204,7 @@ function whiteStart() {
 
 
 // function whiteStart() {
-//     $('.game-prompt p').html("<b>White</b>, place your tokens!");
+//     $('.game-prompt p').html("<b>White</b>, place your tokens on the left-hand side of the board!");
 //     $('.button.skip').off("click");
 //     let whiteCircle = 0;
 //     if (whiteCircle === 2) {
