@@ -50,6 +50,8 @@ header {
     background-color: blanchedalmond;
     height: 100px;
     margin: 5px;
+    padding: 20px 0 0 0;
+    text-align: center;
     width: 55%;
 }
 
@@ -71,7 +73,7 @@ header {
     padding: 20px;
     position: absolute;
     text-align: center;
-    width: 40%;
+    width: 30%;
 }
 
 /* Game Board Styling */

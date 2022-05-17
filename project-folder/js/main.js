@@ -83,15 +83,46 @@
 
 // WORKING JS CODE:
 
+// Start Game
+
+$('.button.skip p').html("<b>Start Game</b>")
+
+$('.button.skip').click(function() {
+    whiteStart();
+})
+
+
+$('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
+
+
 // Adding player tokens
 
-$('.game-board').append("<div class='white circle'></div>")
-$('.game-board').append("<div class='brown square'></div>")
+function whiteStart() {
+    $('.game-prompt p').html("<b>White</b>, place your tokens!");
+    
+    for (let whiteCircle = 0; whiteCircle < 2; whiteCircle ++) {
+        $('.game-board').append("<div class='white circle'></div>");
+        $('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
+    }
+    for (let whiteSquare = 0; whiteSquare < 3; whiteSquare ++) {
+        $('.game-board').append("<div class='white square'></div>");
+        $('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
+    }
+}
+
+
+
+// $('.game-board').append("<div class='white circle'></div>")
+// $('.game-board').append("<div class='brown square'></div>")
 
 $('.grid').droppable({accept: ".brown", accept: ".white"})
 
-// $('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
+$('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
+
 // $('.brown').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
+
+
+
 
 // Rules button Clicks
 
@@ -104,17 +135,31 @@ $('.pop-up').click(function() {
     $('.pop-up').toggle();
 })
 
+
+
+
+
+// Player initial player scores
+let whiteScore = 0;
+$('#white-score').append("<p> " + whiteScore + " </p>")
+
+let brownScore = 0;
+$('#brown-score').append("<p> " + brownScore + " </p>")
+
+
+
+
 // Player Turn Rules
 
 let playerCount = 2;
 let whiteMoves = 0;
 let brownMoves = 0;
 
-if (playerCount % 2 !=0) {
-    whiteTurn();
-} else {
-    brownTurn();
-}
+// if (playerCount % 2 !=0) {
+//     whiteTurn();
+// } else {
+//     brownTurn();
+// }
 
 // This isn't quite working yet!
 
@@ -146,12 +191,3 @@ function brownMove() {
     })
 }
 
-
-
-
-// Player initial player scores
-let whiteScore = 0;
-$('#white-score').append("<p> " + whiteScore + " </p>")
-
-let brownScore = 0;
-$('#brown-score').append("<p> " + brownScore + " </p>")
