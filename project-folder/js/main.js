@@ -83,7 +83,9 @@
 
 // WORKING JS CODE:
 
-// Start Game
+
+
+// START GAME
 
 $('.button.skip p').html("<b>Start Game</b>")
 
@@ -92,25 +94,91 @@ $('.button.skip').click(function() {
 })
 
 
-$('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
 
 
-// Adding player tokens
+// ADDING PLAYER TOKENS
+
+
+
+// Via Draggable - adds the right number but how to check if they're 'set'?
 
 function whiteStart() {
     $('.game-prompt p').html("<b>White</b>, place your tokens!");
-    
+    $('.button.skip').off("click");
     for (let whiteCircle = 0; whiteCircle < 2; whiteCircle ++) {
         $('.game-board').append("<div class='white circle'></div>");
-        $('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
+        $('.white').draggable({ containment: ".game-board", snapMode: "inner", scroll: false, snap: ".grid.left", revert: "invalid", snapTolerance: 100, opacity: 0.5});
     }
     for (let whiteSquare = 0; whiteSquare < 3; whiteSquare ++) {
         $('.game-board').append("<div class='white square'></div>");
-        $('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
+        $('.white').draggable({ containment: ".game-board", snapMode: "inner", scroll: false, snap: ".grid.left", revert: "invalid", snapTolerance: 100, opacity: 0.5});
     }
 }
 
 
+// Via Hover/Click
+
+
+
+
+// function whiteStart() {
+//     $('.game-prompt p').html("<b>White</b>, place your tokens!");
+//     $('.button.skip').off("click");
+//     let whiteCircle = 0;
+//     if (whiteCircle === 2) {
+//         console.log("White Done!")
+//     } else {
+//         $('.grid.left').on("mouseenter", (function () {
+//             $(this).append("<div class='white circle'></div>");
+//             whiteCircle ++;
+//             console.log(whiteCircle);
+//         }))
+//         $('.grid.left').on("mouseleave", (function () {
+//              $(this).remove(".white.circle")
+//              whiteCircle --;
+//              console.log(whiteCircle);
+//              console.log("Mouse leave");
+//         }))
+//         $('.grid.left').on("click", (function () {
+//             $(".grid.left").off("mouseleave");
+//             console.log("click!");
+//             console.log(whiteCircle);
+//         }))
+//     }
+    
+// }
+
+
+
+
+// Hover Method - NOT WORKING
+
+
+// function whiteStart() {
+//     $('.game-prompt p').html("<b>White</b>, place your tokens!");
+//     $('.button.skip').off("click");
+//     let whiteCircle = 0;
+//     if (whiteCircle === 2) {
+//         console.log("White Done!");
+//     } else {
+//         $('grid-left').hover(function() {
+//             $(this).append("<div class='white circle'></div>");
+//             whiteCircle ++;
+//             console.log(whiteCircle)
+//         }, function (){
+//             $(this).remove(".white.circle")
+//             whiteCircle --;
+//             console.log(whiteCircle);
+//             console.log("Mouse leave")
+//         })
+//     }
+// }
+
+
+
+
+
+// GENERAL PLAYER TOKENS TESTING
 
 // $('.game-board').append("<div class='white circle'></div>")
 // $('.game-board').append("<div class='brown square'></div>")
@@ -119,12 +187,12 @@ $('.grid').droppable({accept: ".brown", accept: ".white"})
 
 $('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
 
-// $('.brown').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
+$('.brown').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
 
 
 
 
-// Rules button Clicks
+// RULES BUTTON POP-UP
 
 $('.button.rules').click(function() {
     $('.pop-up').toggle();
@@ -139,7 +207,8 @@ $('.pop-up').click(function() {
 
 
 
-// Player initial player scores
+// PLAYER SCORES
+
 let whiteScore = 0;
 $('#white-score').append("<p> " + whiteScore + " </p>")
 
@@ -149,7 +218,7 @@ $('#brown-score').append("<p> " + brownScore + " </p>")
 
 
 
-// Player Turn Rules
+// PLAYER TURN RULES
 
 let playerCount = 2;
 let whiteMoves = 0;
@@ -161,20 +230,20 @@ let brownMoves = 0;
 //     brownTurn();
 // }
 
+
+
 // This isn't quite working yet!
 
 function whiteTurn() {
-    $('.white').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
-    playerCount ++;
     console.log(playerCount);
     console.log("White goes");
+    // Needs to throw to whiteMove, which then throws to whitePush, which then throws to brownMove, which then throws to brownPush, and so on.
 }
 
 function brownTurn() {
-    $('.brown').draggable({ containment: ".game-board", scroll: false, snap: ".grid", snapTolerance: 100, opacity: 0.5});
-    playerCount ++;
     console.log(playerCount);
     console.log("Brown goes");
+    // Needs to throw to brownMove, which then throws to brownPush, which then throws to whiteMove, which then throws to whitePush, and so on.
 }
 
 function whiteMove() {
@@ -182,6 +251,8 @@ function whiteMove() {
         whiteMoves ++;
         console.log("White moves: " + $(whiteMoves))
     })
+    // Needs something that SETS the move, and actually adds one at that set
+    // Needs something to allow to SKIP the move
 }
 
 function brownMove() {
@@ -189,5 +260,7 @@ function brownMove() {
         brownMoves = brownMoves += 1;
         console.log("Brown moves: " + $(brownMoves))
     })
+    // Needs something that SETS the move, and actually adds one at that set
+    // Needs something to allow to SKIP the move
 }
 
