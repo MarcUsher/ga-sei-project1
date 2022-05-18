@@ -111,7 +111,7 @@ p {
     width: calc(12.5% - 2px);
 }
 
-/* .game-board .top {
+.game-board .top {
     border-top: 5px solid sienna;
     height: calc(25% - 5px);
 }
@@ -119,7 +119,7 @@ p {
 .game-board .bottom {
     border-bottom: 5px solid sienna;
     height: calc(25% - 5px);
-} */
+}
 
 /* .game-board .column4 {
     border-right: dashed sienna 2px;
