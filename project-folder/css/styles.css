@@ -42,10 +42,10 @@ header {
 
 .start-zone {
     background-color: blanchedalmond;
-    margin: 10px;
-    padding: 20px 30px;
+    /* margin: 10px; */
+    padding: 20px 0;
     text-align: center;
-    width: 150px;
+    width: 220px;
 }
 
 .game-prompt {
@@ -85,7 +85,7 @@ header {
     /* border: solid thick sienna; */
     display: flex;
     flex-wrap: wrap;
-    margin: 10px;
+    /* margin: 10px; */
     position: relative;
     width: 800px;
     height: 400px;
@@ -96,7 +96,6 @@ header {
     border-style: solid;
     border-width: 1px;
     height: calc(25% - 2px);
-    position: relative;
     width: calc(12.5% - 2px);
 }
 
@@ -109,7 +108,7 @@ header {
     width: calc(12.5% - 2px);
 }
 
-.game-board .top {
+/* .game-board .top {
     border-top: 5px solid sienna;
     height: calc(25% - 5px);
 }
@@ -117,7 +116,7 @@ header {
 .game-board .bottom {
     border-bottom: 5px solid sienna;
     height: calc(25% - 5px);
-}
+} */
 
 /* .game-board .column4 {
     border-right: dashed sienna 2px;
@@ -136,25 +135,26 @@ header {
     height: 50px;
     width: 50px;
     z-index: 10;
+    cursor: grabbing;
+}
+
+.token--white {
+    background-color: white;
+}
+
+.token--brown {
+    background-color: darkolivegreen;
+}
+
+.token--circle {
+    border-radius: 50%;
 }
 
 .token--placed {
     display: block;
-    margin-top: -25px;
-    margin-left: -25px;
     position: absolute;
-}
-
-.white {
-    background-color: white;
-}
-
-.brown {
-    background-color: darkolivegreen;
-}
-
-.circle {
-    border-radius: 50%;
+    margin-left: 25px;
+    margin-top: 25px;
 }
 
 /* Game state styling */

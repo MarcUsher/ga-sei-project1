@@ -120,50 +120,160 @@ let game = {
 
 // START GAME
 
-$('.button.skip p').html("<b>Start Game</b>")
+// So because all the droppable methods apply when "accepted draggable" elements are moved 
+// we can't go about enabling/disabling droppables, because they won't trigger the logic they need to 
+// when their token gets moved again. I've has tried utilising snap as a way to disable user placing 2 tokens
+// on the same square but to no avail. scope is also a no go as anything outside of a scope isn't an
+// "accepted draggable". This leads me to believe some form of game object IS necessary. Perhaps the draggable
+// start function is the correct trigger for updating this game object (as it triggers upon picking up a token).
+// Likewise stop (draggable) could be used in the same way.
+
+
+$('.button.skip p').html("<b>Start Game</b>");
+
+// when the game starts destroy all the logic from init()
+// https://api.jqueryui.com/droppable/#method-destroy
 
 function init() {
+
     $('.token').draggable({
         containment: '.game-area',
         revert: 'invalid',
-    })
-    var spacesLeft = $('.grid.left').droppable({
-        accept: '.token.white',
+        start: function( event, ui ) {
+            var $token = $(this);
+            updateGameSetup($token);
+        },
+    });
+
+    $('.grid--unoccupied').droppable({
+        accept: '.token',
+        tolerance: 'pointer',
         drop: function(ev, ui) {
             var token = ui.draggable;
-            var droppedOn = $(this);
-            $(token).detach().css({top: '50%',left: '50%'}).appendTo(droppedOn);
-            $(token).addClass('token--placed');
-            $(droppedOn).addClass('grid--occupied grid--occupied-white');
+            var $droppedOn = $(this);
+            dropBehaviour(token, $droppedOn, 'white');
         },
-        out: function(ev, ui) {
-            var token = ui.draggable;
-            var draggedFrom = $(this);
-            $(draggedFrom).removeClass('grid--occupied grid--occupied-white');
-            console.log(ui, 'ui');
-            console.log($(this));   
+    });
+
+    // $('.grid.left').droppable({
+    //     accept: '.token--white',
+    //     tolerance: 'pointer',
+    //     drop: function(ev, ui) {
+    //         var token = ui.draggable;
+    //         var $droppedOn = $(this);
+    //         dropBehaviour(token, $droppedOn, 'white');
+    //     },
+    //     out: function(ev, ui) {
+    //         var $draggedFrom = $(this);
+    //         outBehaviour($draggedFrom, 'white');
+    //     },
+    // });
+
+    // $('.grid.right').droppable({
+    //     accept: '.token--brown',
+    //     tolerance: 'pointer',        
+    //     drop: function(ev, ui) {
+    //         var token = ui.draggable;
+    //         var $droppedOn = $(this);
+    //         dropBehaviour(token, $droppedOn, 'brown');
+    //     },
+    //     out: function(ev, ui) {
+    //         var $draggedFrom = $(this);
+    //         outBehaviour($draggedFrom, 'brown');
+    //     },
+    // });
+
+    // Token dropped successfully
+    function dropBehaviour(token, $droppedOn, team) {
+        if(!token || !$droppedOn || !team) {
+            console.log('dropBehaviour isnt being passed all the parameters it needs.');
+            return;
         }
-      });
-    var spacesRight = $('.grid.right').droppable({
-        accept: '.token.brown',
-        drop: function(ev, ui) {
-            var token = ui.draggable;
-            var droppedOn = $(this);
-            $(token).detach().css({top: '50%',left: '50%'}).appendTo(droppedOn);
-            $(token).addClass('token--placed');
-            $(droppedOn).addClass('grid--occupied grid--occupied-brown');
-        },
-        out: function(ev, ui) {
-            var token = ui.draggable;
-            var draggedFrom = $(this);
-            $(draggedFrom).removeClass('grid--occupied grid--occupied-brown');
-            console.log(ui, 'ui');
-            console.log($(this));
-        }
-      });
+        // console.log($droppedOn.position());
+        var droppedTop = $droppedOn.position().top;
+        var droppedLeft = $droppedOn.position().left;        
+        var droppedPosition = $droppedOn.attr('data-position');
+        console.log(droppedPosition, 'pos');
+
+        $(token).attr('data-position', droppedPosition);
+        $(token).detach().css({position: 'absolute', top: droppedTop, left: droppedLeft}).appendTo($droppedOn);
+        $(token).addClass('token--placed');
+        $droppedOn.removeClass('grid--unoccupied');
+        $droppedOn.addClass('grid--occupied');
+
+        // $droppedOn.addClass('grid--occupied grid--occupied-' + team);
+        // Loop through gridItems and update (need to make up a way to connect token placed to grid item)
+        // disableDroppables($droppedOn);
+    }
+
+    // Token picked up and moved
+    // function outBehaviour($draggedFrom, team) {
+    //     // console.log($draggedFrom, 'draggedFrom');
+    //     if(!$draggedFrom || !team) {
+    //         console.log('dropBehaviour isnt being passed all the parameters it needs.');
+    //         return;
+    //     }
+    //     $draggedFrom.addClass('grid--unoccupied');
+    //     $draggedFrom.removeClass('grid--occupied');
+
+    //     // $draggedFrom.removeClass('grid--occupied grid--occupied-' + team);
+    //     // enableDroppables($draggedFrom);
+    // }
+
+    function disableDroppables($elements) {
+        if (!$elements) {return;}
+        $elements.droppable("disable");
+    }
+
+    function enableDroppables($elements) {
+        if (!$elements) {return;}
+        $elements.droppable("enable");
+    }
+
+    function updateGameSetup($token) {
+        var $gridItems = $('.grid');
+        $gridItems.each(function(index, value) {
+            var gridOccupied = false;
+            var gridLeft = Math.round($(value).position().left);
+            var gridTop = Math.round($(value).position().top);
+
+            var $tokens = $('.token');
+            $tokens.each(function(index, value) {
+                var tokenLeft = Math.round($(value).position().left);
+                var tokenTop = Math.round($(value).position().top);
+                if (tokenLeft === gridLeft && tokenTop === gridTop) {
+                    gridOccupied = true;
+                } 
+            });
+
+            if (gridOccupied) {
+                $(value).addClass('grid--occupied');
+                $(value).removeClass('grid--unoccupied');
+                disableDroppables($(value));
+            } else {
+                $(value).removeClass('grid--occupied');
+                $(value).addClass('grid--unoccupied');
+                enableDroppables($(value));
+            }
+
+            // Check for game logic, where can this token move etc?
+
+            if ($token.attr('data-position') === $(value).attr('data-position')) {
+                $(value).removeClass('grid--occupied');
+                $(value).addClass('grid--unoccupied');
+                enableDroppables($(value));
+            }
+
+            // TODO: What about when it gets reverted?!
+
+        });
+    }
+
+
+
 }
 
-init()
+init();
 
 // function startGame() {
 //     $('.button.skip').click(function() {
