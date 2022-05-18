@@ -67,6 +67,7 @@ p {
     padding: 10px 40px;
     border-radius: 10px;
     margin: 15px;
+    cursor: pointer;
 }
 
 .pop-up {
@@ -79,6 +80,8 @@ p {
     position: absolute;
     text-align: center;
     width: 40%;
+    z-index: 1000;
+    overflow-y: scroll;
 }
 
 /* Game Board Styling */
