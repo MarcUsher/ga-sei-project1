@@ -6,10 +6,6 @@ body {
     max-width: 1500px;
 }
 
-body.overlay {
-    background-color: grey;
-}
-
 /* Header Styling */
 
 header {
@@ -42,28 +38,35 @@ header {
 
 .start-zone {
     background-color: blanchedalmond;
-    /* margin: 10px; */
+    margin: 10px;
     padding: 20px 0;
     text-align: center;
     width: 220px;
 }
 
 .game-prompt {
+    align-items: center;
     background-color: blanchedalmond;
+    display: flex;
     height: 100px;
+    justify-content: center;
     margin: 5px;
-    padding: 20px 0 0 0;
     text-align: center;
     width: 55%;
+}
+
+p {
+    font-size: large;
+    margin: 10px;
 }
 
 /* Button styling */
 
 .button {
     background-color: aquamarine;
-    padding: 0px 40px;
+    padding: 10px 40px;
     border-radius: 10px;
-    margin: 10px;
+    margin: 15px;
 }
 
 .pop-up {
@@ -85,18 +88,10 @@ header {
     /* border: solid thick sienna; */
     display: flex;
     flex-wrap: wrap;
-    /* margin: 10px; */
+    margin: 10px;
     position: relative;
     width: 800px;
     height: 400px;
-}
-
-.grid {
-    border-color:sienna;
-    border-style: solid;
-    border-width: 1px;
-    height: calc(25% - 2px);
-    width: calc(12.5% - 2px);
 }
 
 .game-board .space {
@@ -105,6 +100,14 @@ header {
     border-width: 1px;
     height: calc(25% - 2px);
     position: relative;
+    width: calc(12.5% - 2px);
+}
+
+.grid {
+    border-color:sienna;
+    border-style: solid;
+    border-width: 1px;
+    height: calc(25% - 2px);
     width: calc(12.5% - 2px);
 }
 
@@ -142,7 +145,7 @@ header {
     background-color: white;
 }
 
-.token--brown {
+.token--green {
     background-color: darkolivegreen;
 }
 
