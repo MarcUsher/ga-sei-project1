@@ -48,7 +48,7 @@ function playSoundDrop() {
         soundfile = new Audio(file);
         soundfile.play();
     }
-    playSoundbite(`../audio/drop.wav`);
+    playSoundbite(`audio/drop.wav`);
 }
 
 function playSoundPickup() {
@@ -57,7 +57,7 @@ function playSoundPickup() {
         soundfile = new Audio(file);
         soundfile.play();
     }
-    playSoundbite(`../audio/pickup.wav`);
+    playSoundbite(`audio/pickup.wav`);
 }
 
 
