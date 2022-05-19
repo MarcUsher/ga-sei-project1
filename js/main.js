@@ -90,8 +90,11 @@ function tokenDrop(token, $droppedOn, tokenTeam) {
     $droppedOn.addClass('grid--occupied grid--' + tokenTeam);
 }
 
-// TOKEN DROPPED & PUSHING SUCCESSFULLY
-// Token drops on an allowed grid square, namely an adjacent square that already has another token in it. 
+
+
+// TOKEN DROPPED & PUSHING
+// Token drops on an allowed grid square, namely an adjacent square that already has another token in it.
+// It would then push the rest of the tokens in the same direction by one square. 
 
 function tokenPush(token, $droppedOn, tokenTeam) {
     if(!token || !$droppedOn || !tokenTeam) {
@@ -99,17 +102,17 @@ function tokenPush(token, $droppedOn, tokenTeam) {
         return;
     }
     currentGridItem = $droppedOn;
-    // console.log($droppedOn.position());
     var droppedTop = $droppedOn.position().top;
     var droppedLeft = $droppedOn.position().left;        
     var droppedRow = $droppedOn.attr('data-row');
     var droppedColumn = $droppedOn.attr('data-column');
-    // console.log(droppedPosition, 'pos');
 
-    // Here you need to know which direction the token came from, so compare token original data-row data-column with droppedOn data-row data-column, if row + 1 then check the rest row +1, if row-1 then check the rest of row-1, if column +1 ** if column -1 **
+    // MISSING GAME LOGIC
+    // Know which direction the token came from - compare token original data-row data-column with droppedOn data-row data-column; if row + 1 then check the rest row +1, if row-1 then check the rest of row-1, if column +1 ** if column -1 **
     // DROPPED token data-row & data-column AND droppedTop droppedLeft need to be updated to match droppedOn
-    // if droppedOn now has 2 children, droppedOn first child needs to move in the same direction and so on and so on, each of these updating their data-row & data-column AND their position.
-
+    // If droppedOn now has 2 children, droppedOn first child needs to move in the same direction as the token came from, and so on and so on, each of these updating their data-row & data-column AND their position.
+    // How many to check? Row length or column length -2 (works in either direction)
+    
     $(token).attr('data-row', droppedRow);
     $(token).attr('data-column', droppedColumn);
     $(token).detach().css({position: 'absolute', top: droppedTop, left: droppedLeft}).appendTo($droppedOn);
@@ -138,7 +141,9 @@ function enableDroppables($elements) {
 
 
 
-// ON TOKEN PICKUP, this function runs to check the game board for which grid items have tokens already, and stops players from placing their tokens there. The main game logic happens here on the PICKUP of a token.
+// ON TOKEN PICKUP
+// This function runs to check the game board for which grid items have tokens already, and stops players from placing their tokens there. 
+// The main game logic happens here on the PICKUP of a token, as it then checks the game board to see where all the available and unavailable spaces are.
 
 function updateGame($token) {
     var $gridItems = $('.grid');
@@ -159,8 +164,8 @@ function updateGame($token) {
                 gridOccupied = true;
             } 
         });
+
         // End loop over tokens
-    
         if (game.status !== "whitepush" || game.status !== "greenpush") {
             if (gridOccupied) {
                 $theGridSquare.addClass('grid--occupied');
@@ -199,20 +204,15 @@ function updateGame($token) {
          }
 
 
-        // GAME LOGIC FOR MOVE TURNS
+        // MOVE TURNS
+        // As part of this loop, we need to retrieve the data positions of all the occupied squares eg. 4-3 (dragged token), 1-4 2-4 3-4 4-4 (other whites), 1-5 2-5 3-5 4-5 1-6 (greens)
+        // ALREADY can't drop on somewhere with an existing element, need to be able to block the spaces after other occupied squares based on your starting position.
+        
         // if (game.status === "whitemove") {
-        //     // PICK UP SQUARE
-        //     // CHECK ALL ELEMENTS ON ROW
-        //     // WE'RE IN OUR GRID LOOP HERE, 
-        //     // $(value) = current grid item in the loop;
-        //     // $token is the token that's picked up/being dragged
-        //     // all tokens have data position = to their grid square
-        //     // As part of this loop, we need to retrieve the data positions of all the occupied squares eg. 4-3 (dragged token), 1-4 2-4 3-4 4-4 (other whites), 1-5 2-5 3-5 4-5 1-6 (greens)
-        //     // ALREADY can't drop on somewhere with an existing element
-        //     // if $(value) has class ui-droppable-hover && grid--occupied then can it IMMEDIATELY revert? can you interrupt a drag (drag: functionality for draggable?)
-        //     // or set it so it can't move within a certain distance of an object?
+
         // }
     
+        // As part of the grid/token loop in this function, update the classes on the whole grid and disabled ALL droppables except for the droppedOn square.
         if (game.status === "whitepush" || game.status === "greenpush") {
             if (gridOccupied) { // && adjacent
                 $theGridSquare.addClass('grid--occupied');
@@ -231,18 +231,11 @@ function updateGame($token) {
                 $theGridSquare.addClass('grid--unoccupied');
                 enableDroppables($theGridSquare);
             }
-    
-            // loop through grid to find all grid occupied? or
-            // variables for picked up token data-row & data-column;
-            // if data-row+-1 or data-column +-1 has.Class(grid--occupied) THEN ONLY ALLOW THOSE AS DROPPABLE IN THIS MOVE SET
-            // on dropping on one of those, execute new generic push function
-            // PICK UP token from check the ones NEWS by +-1 to the row/column positions and check if token is in one of them, if yes then ENABLE the space (else disable it), 
-            // then need to add to the drop function if dropping onto occupied space then fire a new function (pass in to that function what direction we care about ie. row/column, + or -) and then for the rest of the ones in that row it shimmies them along
         }
         
     });
 
-
+    //  Game logic for push to check adjacent squares by data-row and data-column and only allow dropping on adjacent occupied squares.
     if (game.status === "whitepush" || game.status === "greenpush") {
 
         var grabbedTokenRow = Number($token.attr('data-row'));
@@ -264,14 +257,6 @@ function updateGame($token) {
         if (gridSquareRight.hasClass('grid--occupied')) {
             enableDroppables(gridSquareRight);
         }
-        // console.log(grabbedTokenRow, "TOKEN ROW");
-        // console.log(grabbedTokenColumn, "TOKEN COLUMN");
-        // console.log(gridSquareAbove, "SQUARE ABOVE");
-        // console.log(gridSquareBelow, "SQUARE BELOW");
-        // console.log(gridSquareLeft, "SQUARE LEFT");
-        // console.log(gridSquareRight, "SQUARE RIGHT");
-        
-        // SEPARATE FUNCTION tokenPush() called on DROP when it's whitepush or greenpush which needs to shunt all the adjacent tokens across one in that same direction AND updates each token pushed data row and data column
     }
 }
 
