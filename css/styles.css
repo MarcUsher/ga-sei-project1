@@ -80,17 +80,15 @@ header {
 p {
     font-size: large;
     margin: 10px;
+    color: #111;
 }
 
 /* Button styling */
 
-/* .button {
-    background-color: aquamarine;
-    padding: 10px 40px;
-    border-radius: 10px;
-    margin: 15px;
-    cursor: pointer;
-} */
+.buttons {
+    display: flex;
+    justify-content: space-evenly;
+}
 
 .button {
     align-items: center;
@@ -139,20 +137,15 @@ p {
   .button:hover {
     outline: 0;
   }
-  
+
 
 .pop-up {
-    background-color: rgba(66, 29, 29, 0.911);
     border: solid black 2px;
     color: white;
-    display: none;
-    height: 50%;
     padding: 20px;
     position: absolute;
     text-align: center;
-    width: 40%;
     z-index: 1000;
-    overflow-y: scroll;
     box-shadow:
         1.4px 3.1px 3px -2px rgba(0, 0, 0, 0.09),
         3.6px 7.8px 7.5px -2px rgba(0, 0, 0, 0.129),
@@ -160,7 +153,25 @@ p {
         15px 32.9px 31.4px -2px rgba(0, 0, 0, 0.2),
         41px 90px 86px -2px rgba(0, 0, 0, 0.29)
     ;
-  
+}
+
+.pop-up p {
+    color: white;
+}
+
+.rules.pop-up {
+    background-color: rgba(66, 29, 29, 0.911);
+    height: 50%;
+    width: 40%;
+    display: none;
+    overflow-y: scroll;
+}
+
+.forfeit.pop-up {
+    background-color: rgb(131, 4, 4);
+    padding-top: 50px;
+    height: 20%;
+    width: 20%;
 }
 
 /* Game Board Styling */
@@ -183,6 +194,7 @@ p {
 }
 
 .game-board .space {
+    background-color: rgba(255, 255, 255, 0.575);
     border-color: rgba(0, 0, 0, 0);
     border-style: solid;
     border-width: 1px;
@@ -267,9 +279,11 @@ footer ul {
 }
 
 footer ul li {
+    color: white;
     display: inline-block;
 }
 
 footer a, footer p {
     color: white;
+    font-weight: bold;
 }
