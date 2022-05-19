@@ -116,11 +116,10 @@ function enableDroppables($elements) {
 // Button click to start the game and move us into the first game phase of 'setup'.
 
 
-$('.game-prompt p').html("<b>Welcome to Push Fight! Ready to play? Click the button to start the game.");
+$('.game-prompt p').html("Welcome to <b>Push Fight</b>, a game of skill and surprise! Two players battle on a game board as the white team plays the green team.  The goal is for a player to push ONE of their opponent's game pieces off the board at either end. <b>Click the button to start the game</b>.");
 $('.button.skip p').html("<b>Start Game</b>");
 
 $('.button.skip').click(function() {
-        game.status = "setup"; 
         setup();   
     })
 
@@ -282,12 +281,13 @@ function updateGame($token) {
 // Button click clears the element taking the draggable property and updates it before calling the function for the next turn, whiteMove().
 
 function setup() {
+    game.status = "setup"; 
+
     $('.game-prompt p').html("<b>Players, set up your tokens!</b>. White can only be placed on the left of the board, and Green on the right. Click the button when you're ready to play.");
 
     $('.button.skip p').html("<b>Finish set up</b>");
     $('.button.skip').off("click"); 
     $('.button.skip').click(function() {
-        game.status = "whitemove";
         setupDraggables.draggable( "option", "cancel", ".token--green" ) 
         whiteMove();
     })
@@ -336,12 +336,13 @@ function setup() {
 // Button click clears the element taking the draggable property before calling the function for the next turn, whitePush().
 
 function whiteMove () {
-    $('.game-prompt p').html("<b>White, move your tokens!</b>. You can move up to two of your tokens to an empty space on the board, as long as you can get there by moving unimpeded in horizontal and vertical moves. Click the button when you're ready.");
+    game.status = "whitemove";
+   
+    $('.game-prompt p').html("<b>White, move your tokens!</b>. You can move up to two of your tokens to an empty space on the board, as long as you can get there by moving unimpeded in horizontal and vertical moves. Click the button when you've completed the moves you wanted to make.");
 
     $('.button.skip p').html("<b>Finish white move</b>");
     $('.button.skip').off("click");
     $('.button.skip').click(function() {
-        game.status = "whitepush";
         setupDraggables.draggable( "option", "cancel", "" )
         setupDraggables.draggable( "option", "cancel", ".token--circle, .token--green")
         whitePush();
@@ -353,6 +354,7 @@ function whiteMove () {
 
 
 function whitePush () {
+    game.status = "whitepush";
     $('.game-prompt p').html("<b>White, push with one of your square tokens!</b>");
 
     $('.button.skip p').html("<b>Finish white push</b>");
