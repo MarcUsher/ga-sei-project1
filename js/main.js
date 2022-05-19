@@ -40,6 +40,26 @@ $('.pop-up').click(function() {
 })
 
 
+// Audio effects
+
+function playSoundDrop() {
+    var soundfile = new Audio();
+    function playSoundbite(file){
+        soundfile = new Audio(file);
+        soundfile.play();
+    }
+    playSoundbite(`../audio/drop.wav`);
+}
+
+function playSoundPickup() {
+    var soundfile = new Audio();
+    function playSoundbite(file){
+        soundfile = new Audio(file);
+        soundfile.play();
+    }
+    playSoundbite(`../audio/pickup.wav`);
+}
+
 
 // TOKEN DROPPED SUCCESSFULLY
 // Token drops on a grid square. The Function gets the position of the grid square where the token is being dropped and gives that token the same top & left position as the grid square, detaches the token from its previous parent and attaches it to this grid square, and updates the classes on both elements.
@@ -306,6 +326,7 @@ function setup() {
         },
         start: function( event, ui ) {
             var $token = $(this);
+            playSoundPickup();
             updateGame($token);
         },
     });
@@ -324,7 +345,8 @@ function setup() {
                 tokenDrop(token, $droppedOn, tokenTeam);
             } else {
                 tokenPush(token, $droppedOn, tokenTeam);
-            }
+            };
+            playSoundDrop();
         },
     });
 
