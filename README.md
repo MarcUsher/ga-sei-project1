@@ -63,4 +63,6 @@ There were a number of reasons why I thought it would be a good challenge for th
 * Unfortunately I don't fully have this working yet! The 'Forfeit' functionality works on push turns, allowing a player to forfeit if they have no legal move, but the full win conditions (automatically noticing no legal push move, or having a piece pushed off the game board) is not yet implemented.
 
 ## Functionista
-* Describe how some of your favorite functions work
+* A lot of the game logic rests on updating/removing classes to grid squares as tokens are moved around to track which squares are occupied/free, and it was great to finally crack this and also make it work when tokens are picked up and dragged around (allowing them to go back to their original square and not messing up the classes of any squares they were dragged over).
+* Paring back the code added to drag and drop and adding these as separate functions helped with the game flow.
+* The main updateGame() function, where a lot of the game logic sits, also took a long time to get right (and still needs a bit more work!) but it's a tidy way of governing what can happen on each type of turn.
